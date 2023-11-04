@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "8v1ZyBbT7B98/WIH8i73xB4I1BpCVBVXLT7+K1Faak0RnSfZFBXCidXN7PcCJHJNrT/AEDAhlDghDya0vn0lXA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\jose\\Desktop\\Proyectos\\dotNet\\API.FurnitoreStore\\API.FurnitoreStore.API\\API.FurnitoreStore.API.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\jose\\.nuget\\packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
+    "C:\\Users\\jose\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
+    "C:\\Users\\jose\\.nuget\\packages\\swashbuckle.aspnetcore\\6.5.0\\swashbuckle.aspnetcore.6.5.0.nupkg.sha512",
+    "C:\\Users\\jose\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.5.0\\swashbuckle.aspnetcore.swagger.6.5.0.nupkg.sha512",
+    "C:\\Users\\jose\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.5.0\\swashbuckle.aspnetcore.swaggergen.6.5.0.nupkg.sha512",
+    "C:\\Users\\jose\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\6.5.0\\swashbuckle.aspnetcore.swaggerui.6.5.0.nupkg.sha512"
+  ],
+  "logs": []
+}
