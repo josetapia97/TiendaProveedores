@@ -1,0 +1,11 @@
+C:\Users\jose\Desktop\Proyectos\dotNet\API.FurnitoreStore\API.FurnitoreStore.Shared\bin\Debug\net6.0\API.FurnitoreStore.Shared.deps.json
+C:\Users\jose\Desktop\Proyectos\dotNet\API.FurnitoreStore\API.FurnitoreStore.Shared\bin\Debug\net6.0\API.FurnitoreStore.Shared.dll
+C:\Users\jose\Desktop\Proyectos\dotNet\API.FurnitoreStore\API.FurnitoreStore.Shared\bin\Debug\net6.0\API.FurnitoreStore.Shared.pdb
+C:\Users\jose\Desktop\Proyectos\dotNet\API.FurnitoreStore\API.FurnitoreStore.Shared\obj\Debug\net6.0\API.FurnitoreStore.Shared.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\jose\Desktop\Proyectos\dotNet\API.FurnitoreStore\API.FurnitoreStore.Shared\obj\Debug\net6.0\API.FurnitoreStore.Shared.AssemblyInfoInputs.cache
+C:\Users\jose\Desktop\Proyectos\dotNet\API.FurnitoreStore\API.FurnitoreStore.Shared\obj\Debug\net6.0\API.FurnitoreStore.Shared.AssemblyInfo.cs
+C:\Users\jose\Desktop\Proyectos\dotNet\API.FurnitoreStore\API.FurnitoreStore.Shared\obj\Debug\net6.0\API.FurnitoreStore.Shared.csproj.CoreCompileInputs.cache
+C:\Users\jose\Desktop\Proyectos\dotNet\API.FurnitoreStore\API.FurnitoreStore.Shared\obj\Debug\net6.0\API.FurnitoreStore.Shared.dll
+C:\Users\jose\Desktop\Proyectos\dotNet\API.FurnitoreStore\API.FurnitoreStore.Shared\obj\Debug\net6.0\refint\API.FurnitoreStore.Shared.dll
+C:\Users\jose\Desktop\Proyectos\dotNet\API.FurnitoreStore\API.FurnitoreStore.Shared\obj\Debug\net6.0\API.FurnitoreStore.Shared.pdb
+C:\Users\jose\Desktop\Proyectos\dotNet\API.FurnitoreStore\API.FurnitoreStore.Shared\obj\Debug\net6.0\ref\API.FurnitoreStore.Shared.dll

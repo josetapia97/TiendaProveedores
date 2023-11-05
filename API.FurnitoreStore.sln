@@ -5,6 +5,10 @@ VisualStudioVersion = 17.7.34221.43
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API.FurnitoreStore.API", "API.FurnitoreStore.API\API.FurnitoreStore.API.csproj", "{A59C39BC-279C-4858-B4F3-11528AA84436}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API.FurnitoreStore.Shared", "API.FurnitoreStore.Shared\API.FurnitoreStore.Shared.csproj", "{5F855276-D621-4B6F-8DFE-48D7919B052E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API.FurnitoreStore.Data", "API.FurnitoreStore.Data\API.FurnitoreStore.Data.csproj", "{A7DAE810-B244-417C-B726-41759FAB6203}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{A59C39BC-279C-4858-B4F3-11528AA84436}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A59C39BC-279C-4858-B4F3-11528AA84436}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A59C39BC-279C-4858-B4F3-11528AA84436}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F855276-D621-4B6F-8DFE-48D7919B052E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F855276-D621-4B6F-8DFE-48D7919B052E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F855276-D621-4B6F-8DFE-48D7919B052E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F855276-D621-4B6F-8DFE-48D7919B052E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7DAE810-B244-417C-B726-41759FAB6203}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7DAE810-B244-417C-B726-41759FAB6203}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7DAE810-B244-417C-B726-41759FAB6203}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7DAE810-B244-417C-B726-41759FAB6203}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

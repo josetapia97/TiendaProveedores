@@ -593,6 +593,16 @@
         "build": {
           "buildTransitive/netcoreapp3.1/_._": {}
         }
+      },
+      "API.FurnitoreStore.Shared/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/API.FurnitoreStore.Shared.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/API.FurnitoreStore.Shared.dll": {}
+        }
       }
     }
   },
@@ -1294,10 +1304,16 @@
         "system.text.json.nuspec",
         "useSharedDesignerContext.txt"
       ]
+    },
+    "API.FurnitoreStore.Shared/1.0.0": {
+      "type": "project",
+      "path": "../API.FurnitoreStore.Shared/API.FurnitoreStore.Shared.csproj",
+      "msbuildProject": "../API.FurnitoreStore.Shared/API.FurnitoreStore.Shared.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net6.0": [
+      "API.FurnitoreStore.Shared >= 1.0.0",
       "Microsoft.EntityFrameworkCore >= 6.0.24",
       "Microsoft.EntityFrameworkCore.Design >= 6.0.24",
       "Microsoft.EntityFrameworkCore.Sqlite >= 6.0.24",
@@ -1336,7 +1352,11 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\jose\\Desktop\\Proyectos\\dotNet\\API.FurnitoreStore\\API.FurnitoreStore.Shared\\API.FurnitoreStore.Shared.csproj": {
+              "projectPath": "C:\\Users\\jose\\Desktop\\Proyectos\\dotNet\\API.FurnitoreStore\\API.FurnitoreStore.Shared\\API.FurnitoreStore.Shared.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

@@ -1,0 +1,17 @@
+C:\Users\jose\Desktop\Proyectos\dotNet\API.FurnitoreStore\API.FurnitoreStore.Data\bin\Debug\net6.0\API.FurnitoreStore.Data.deps.json
+C:\Users\jose\Desktop\Proyectos\dotNet\API.FurnitoreStore\API.FurnitoreStore.Data\bin\Debug\net6.0\API.FurnitoreStore.Data.runtimeconfig.json
+C:\Users\jose\Desktop\Proyectos\dotNet\API.FurnitoreStore\API.FurnitoreStore.Data\bin\Debug\net6.0\API.FurnitoreStore.Data.dll
+C:\Users\jose\Desktop\Proyectos\dotNet\API.FurnitoreStore\API.FurnitoreStore.Data\bin\Debug\net6.0\API.FurnitoreStore.Data.pdb
+C:\Users\jose\Desktop\Proyectos\dotNet\API.FurnitoreStore\API.FurnitoreStore.Data\bin\Debug\net6.0\API.FurnitoreStore.Shared.dll
+C:\Users\jose\Desktop\Proyectos\dotNet\API.FurnitoreStore\API.FurnitoreStore.Data\bin\Debug\net6.0\API.FurnitoreStore.Shared.pdb
+C:\Users\jose\Desktop\Proyectos\dotNet\API.FurnitoreStore\API.FurnitoreStore.Data\obj\Debug\net6.0\API.FurnitoreStore.Data.csproj.AssemblyReference.cache
+C:\Users\jose\Desktop\Proyectos\dotNet\API.FurnitoreStore\API.FurnitoreStore.Data\obj\Debug\net6.0\API.FurnitoreStore.Data.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\jose\Desktop\Proyectos\dotNet\API.FurnitoreStore\API.FurnitoreStore.Data\obj\Debug\net6.0\API.FurnitoreStore.Data.AssemblyInfoInputs.cache
+C:\Users\jose\Desktop\Proyectos\dotNet\API.FurnitoreStore\API.FurnitoreStore.Data\obj\Debug\net6.0\API.FurnitoreStore.Data.AssemblyInfo.cs
+C:\Users\jose\Desktop\Proyectos\dotNet\API.FurnitoreStore\API.FurnitoreStore.Data\obj\Debug\net6.0\API.FurnitoreStore.Data.csproj.CoreCompileInputs.cache
+C:\Users\jose\Desktop\Proyectos\dotNet\API.FurnitoreStore\API.FurnitoreStore.Data\obj\Debug\net6.0\API.FurnitoreStore.Data.csproj.CopyComplete
+C:\Users\jose\Desktop\Proyectos\dotNet\API.FurnitoreStore\API.FurnitoreStore.Data\obj\Debug\net6.0\API.FurnitoreStore.Data.dll
+C:\Users\jose\Desktop\Proyectos\dotNet\API.FurnitoreStore\API.FurnitoreStore.Data\obj\Debug\net6.0\refint\API.FurnitoreStore.Data.dll
+C:\Users\jose\Desktop\Proyectos\dotNet\API.FurnitoreStore\API.FurnitoreStore.Data\obj\Debug\net6.0\API.FurnitoreStore.Data.pdb
+C:\Users\jose\Desktop\Proyectos\dotNet\API.FurnitoreStore\API.FurnitoreStore.Data\obj\Debug\net6.0\API.FurnitoreStore.Data.genruntimeconfig.cache
+C:\Users\jose\Desktop\Proyectos\dotNet\API.FurnitoreStore\API.FurnitoreStore.Data\obj\Debug\net6.0\ref\API.FurnitoreStore.Data.dll
