@@ -1,3 +1,4 @@
+using API.FurnitoreStore.API.Configuration;
 using API.FurnitoreStore.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,6 +12,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<APIFurnitureStoreContext>(options => 
                 options.UseSqlite(builder.Configuration.GetConnectionString("APIFurnitureStoreContext")));
+
+//inyecta dependencia para el Jwt desde secrets
+builder.Services.Configure<JwtConfig>(builder.Configuration.GetSection("JwtConfig"));
 
 var app = builder.Build();
 
