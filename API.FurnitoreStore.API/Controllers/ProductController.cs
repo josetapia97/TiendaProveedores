@@ -33,6 +33,7 @@ namespace API.FurnitoreStore.API.Controllers
             return Ok(product);
         }
 
+        //filtro de productos por categoria
         [HttpGet("GetByCategory/{productCategoryId}")]
         public async Task<IEnumerable<Product>> GetByCategory(int productCategoryId)
         {

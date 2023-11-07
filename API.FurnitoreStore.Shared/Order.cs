@@ -14,5 +14,8 @@ namespace API.FurnitoreStore.Shared
         public DateTime OrderDate { get; set; }
         public DateTime DeliveryDate { get; set; }
 
+        //una orden puede contener varios productos en distintas cantidades
+        public List<OrderDetail> OrderDetails { get; set; }
+
     }
 }

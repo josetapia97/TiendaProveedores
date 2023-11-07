@@ -15,6 +15,7 @@ namespace API.FurnitoreStore.Data
         public DbSet<Product> Products { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<ProductCategory> ProductCategories { get; set; }
+        public DbSet<OrderDetail> OrderDetails { get; set; }
 
         //al utsar SQLite se usa este override
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -22,5 +23,12 @@ namespace API.FurnitoreStore.Data
             optionsBuilder.UseSqlite();
         }
 
+        //para que la tabla OrderDetail tenga de PK (idProduct+idOrder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<OrderDetail>()
+                .HasKey(pk => new { pk.OrderId,pk.ProductId});
+        }
     }
 }
