@@ -8,13 +8,13 @@ namespace API.FurnitoreStore.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProductController : ControllerBase
+    public class ProductsController : ControllerBase
     {
         //DB context comunication
         private readonly APIFurnitureStoreContext _context;
 
         //inyeccion de dependencia en el ctor
-        public ProductController(APIFurnitureStoreContext context)
+        public ProductsController(APIFurnitureStoreContext context)
         {
             _context = context;
         }
