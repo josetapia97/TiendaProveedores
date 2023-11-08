@@ -1,10 +1,11 @@
 ﻿using API.FurnitoreStore.Shared;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 
 namespace API.FurnitoreStore.Data
 {
-    public class APIFurnitureStoreContext : DbContext
+    public class APIFurnitureStoreContext : IdentityDbContext
     {
         //constructor para que toda la config de EF se realice
         public APIFurnitureStoreContext(DbContextOptions options) : base(options) { }

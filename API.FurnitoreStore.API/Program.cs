@@ -1,6 +1,9 @@
 using API.FurnitoreStore.API.Configuration;
 using API.FurnitoreStore.Data;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,8 +16,36 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<APIFurnitureStoreContext>(options => 
                 options.UseSqlite(builder.Configuration.GetConnectionString("APIFurnitureStoreContext")));
 
-//inyecta dependencia para el Jwt desde secrets
+//Inyecta dependencia para el Jwt desde secrets
 builder.Services.Configure<JwtConfig>(builder.Configuration.GetSection("JwtConfig"));
+
+//Seteamos la autenticacion para jwt baerer
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(jwt =>
+{
+    //Traemos la key codificada
+    var key = Encoding.ASCII.GetBytes(builder.Configuration.GetSection("JwtConfig:Secret").Value);
+    //Guardamos el token
+    jwt.SaveToken = true;
+    //instanciamos para validar
+    jwt.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters()
+    {
+        //la validacion tiene que suceder
+        ValidateIssuerSigningKey = true,
+        //la validacion que tiene que hacer
+        IssuerSigningKey = new SymmetricSecurityKey(key),
+        //solo en entorno de desarrollo false, luego true. LAS TRES
+        ValidateIssuer = false,
+        ValidateAudience = false,
+        RequireExpirationTime = false,
+        ValidateLifetime = true,
+    };
+    
+});
 
 var app = builder.Build();
 
@@ -28,6 +59,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+//Add autorizacion del builder agregada
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
