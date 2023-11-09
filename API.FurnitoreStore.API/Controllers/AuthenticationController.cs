@@ -48,7 +48,7 @@ namespace API.FurnitoreStore.API.Controllers
                 UserName = request.EmailAdress
             };
 
-            var isCreated = await _userManager.CreateAsync(user);
+            var isCreated = await _userManager.CreateAsync(user, request.Password);
             if (isCreated.Succeeded)
             {
                 var token = GenerateToken(user);
@@ -77,6 +77,31 @@ namespace API.FurnitoreStore.API.Controllers
                 Errors = new List<string> { "User couldn't be created" }
             });
         }
+
+        [HttpPost("Login")]
+        public async Task<IActionResult> Login([FromBody] UserLoginRequestDto request)
+        {
+            if (!ModelState.IsValid) return BadRequest();
+            //revisar si existe el usuario
+            var existingUser = await _userManager.FindByEmailAsync(request.Email);
+            if (existingUser == null)
+                return BadRequest(new AuthResult
+                {
+                    Errors = new List<string> { "Invalid Payload" },
+                    Result = false
+                });
+            var checkUserAndPass = await _userManager.CheckPasswordAsync(existingUser, request.Password);
+            if (!checkUserAndPass) return BadRequest(new AuthResult 
+            { 
+                 Result = false,
+                 Errors = new List<string> { "Invalid Credentials" } 
+            });
+
+            var token = GenerateToken(existingUser);
+
+            return Ok(new AuthResult { Result = true, Token = token });
+        }
+
         private string GenerateToken(IdentityUser user)
         {
             var jwtTokenHandler = new JwtSecurityTokenHandler();
