@@ -1,6 +1,7 @@
 using API.FurnitoreStore.API.Configuration;
 using API.FurnitoreStore.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -46,6 +47,11 @@ builder.Services.AddAuthentication(options =>
     };
     
 });
+
+//para usar IdentityUser como clase (para autenticacion)
+//(se deja falso para testear, en produccion pasa a true)
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
+                                                                   .AddEntityFrameworkStores<APIFurnitureStoreContext>();
 
 var app = builder.Build();
 
