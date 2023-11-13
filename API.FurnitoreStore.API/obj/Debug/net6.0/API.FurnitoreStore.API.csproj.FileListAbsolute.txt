@@ -85,3 +85,6 @@ C:\Users\jose\Desktop\Proyectos\dotNet\API.FurnitoreStore\API.FurnitoreStore.API
 C:\Users\jose\Desktop\Proyectos\dotNet\API.FurnitoreStore\API.FurnitoreStore.API\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 C:\Users\jose\Desktop\Proyectos\dotNet\API.FurnitoreStore\API.FurnitoreStore.API\bin\Debug\net6.0\Microsoft.IdentityModel.Tokens.dll
 C:\Users\jose\Desktop\Proyectos\dotNet\API.FurnitoreStore\API.FurnitoreStore.API\bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\jose\Desktop\Proyectos\dotNet\API.FurnitoreStore\API.FurnitoreStore.API\bin\Debug\net6.0\MailKit.dll
+C:\Users\jose\Desktop\Proyectos\dotNet\API.FurnitoreStore\API.FurnitoreStore.API\bin\Debug\net6.0\MimeKit.dll
+C:\Users\jose\Desktop\Proyectos\dotNet\API.FurnitoreStore\API.FurnitoreStore.API\bin\Debug\net6.0\BouncyCastle.Crypto.dll

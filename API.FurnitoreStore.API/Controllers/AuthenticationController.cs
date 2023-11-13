@@ -100,6 +100,13 @@ namespace API.FurnitoreStore.API.Controllers
                     Errors = new List<string> { "Invalid Payload" },
                     Result = false
                 });
+            if(!existingUser.EmailConfirmed)
+                return BadRequest(new AuthResult
+                {
+                    Errors = new List<string> { "Email needs to be confirmed" },
+                    Result = false
+                });
+
             var checkUserAndPass = await _userManager.CheckPasswordAsync(existingUser, request.Password);
             if (!checkUserAndPass) return BadRequest(new AuthResult 
             { 
@@ -111,6 +118,29 @@ namespace API.FurnitoreStore.API.Controllers
 
             return Ok(new AuthResult { Result = true, Token = token });
         }
+
+        [HttpGet("ConfirmEmail")]
+        public async Task<IActionResult> ConfirmEmail(string userId, string code)
+        {
+            if(string.IsNullOrEmpty(userId) || string.IsNullOrEmpty(code))
+                return BadRequest(new AuthResult
+                {
+                    Errors = new List<string> { "Invalid email confirmation URL"},
+                    Result = false
+                });
+            var user = await _userManager.FindByIdAsync(userId);
+
+            if(user == null)
+               return NotFound($"Unable to load user with id '{userId}'.");
+            code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(code));
+            var result = await _userManager.ConfirmEmailAsync(user, code);
+            var status = result.Succeeded ? "Thank you for confirm your email."
+                                          : "There has been an error confirming your email.";
+            return Ok(status);
+        }
+
+
+
 
         private string GenerateToken(IdentityUser user)
         {
