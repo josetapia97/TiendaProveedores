@@ -61,6 +61,9 @@ builder.Services.AddDbContext<APIFurnitureStoreContext>(options =>
 //Inyecta dependencia para el Jwt desde secrets
 builder.Services.Configure<JwtConfig>(builder.Configuration.GetSection("JwtConfig"));
 
+//Inyecta dependencia para el SMTP desde secrets
+builder.Services.Configure<SmtpSettings>(builder.Configuration.GetSection("SmtpSettings"));
+
 //Seteamos la autenticacion para jwt baerer
 builder.Services.AddAuthentication(options =>
 {
