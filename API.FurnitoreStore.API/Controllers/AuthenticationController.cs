@@ -3,12 +3,16 @@ using API.FurnitoreStore.Shared.Auth;
 using API.FurnitoreStore.Shared.DTOs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using System.Text.Encodings.Web;
 
 namespace API.FurnitoreStore.API.Controllers
 {
@@ -18,12 +22,16 @@ namespace API.FurnitoreStore.API.Controllers
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly JwtConfig _jwtConfig;
+        private readonly IEmailSender _emailSender;
 
         //IOptions trae elementos desde cofig especificando el tipo de output
-        public AuthenticationController(UserManager<IdentityUser> userManager, IOptions<JwtConfig> jwtConfig)
+        public AuthenticationController(UserManager<IdentityUser> userManager,
+                                        IOptions<JwtConfig> jwtConfig,
+                                        IEmailSender emailSender)
         {
             _userManager = userManager;
             _jwtConfig = jwtConfig.Value;
+            _emailSender = emailSender;
         }
 
         [HttpPost("Register")]
@@ -45,17 +53,19 @@ namespace API.FurnitoreStore.API.Controllers
             var user = new IdentityUser()
             {
                 Email = request.EmailAdress,
-                UserName = request.EmailAdress
+                UserName = request.EmailAdress,
+                EmailConfirmed = false
             };
 
             var isCreated = await _userManager.CreateAsync(user, request.Password);
             if (isCreated.Succeeded)
             {
-                var token = GenerateToken(user);
+                await SendVerificationUser(user);
+                //var token = GenerateToken(user);
                 return Ok(new AuthResult()
                 {
                     Result = true,
-                    Token = token
+
                 });
             }
             else
@@ -128,5 +138,21 @@ namespace API.FurnitoreStore.API.Controllers
             return jwtTokenHandler.WriteToken(token);
 
         }
+
+
+        //Email con url de callback, para verificar
+        private async Task SendVerificationUser(IdentityUser user)
+        {
+            var verificationCode = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+            verificationCode = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(verificationCode));
+
+            //example: https://localholst:8080/api/authentication/verifyemail/userId=exampleuserId&code=examplecode
+            var callbackUrl = $@"{Request.Scheme}://{Request.Host}{Url.Action(
+                "ConfirmEmail", controller: "Authentication", new { userId = user.Id, code = verificationCode })}";
+
+            var emailBody = $"Please confirm your acount by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>";
+            await _emailSender.SendEmailAsync(user.Email, "Confirm your email" , emailBody);
+        }
+
     }
 }

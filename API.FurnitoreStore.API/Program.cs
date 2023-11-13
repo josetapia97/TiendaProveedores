@@ -1,7 +1,9 @@
 using API.FurnitoreStore.API.Configuration;
+using API.FurnitoreStore.API.Services;
 using API.FurnitoreStore.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -63,6 +65,8 @@ builder.Services.Configure<JwtConfig>(builder.Configuration.GetSection("JwtConfi
 
 //Inyecta dependencia para el SMTP desde secrets
 builder.Services.Configure<SmtpSettings>(builder.Configuration.GetSection("SmtpSettings"));
+//Inyecta dependencia para emailsender
+builder.Services.AddSingleton<IEmailSender, EmailService>();
 
 //Seteamos la autenticacion para jwt baerer
 builder.Services.AddAuthentication(options =>
