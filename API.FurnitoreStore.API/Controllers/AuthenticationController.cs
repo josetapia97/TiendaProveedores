@@ -158,7 +158,7 @@ namespace API.FurnitoreStore.API.Controllers
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                     new Claim(JwtRegisteredClaimNames.Iat,DateTime.Now.ToUniversalTime().ToString()) //creacion iat
                 })),
-                Expires = DateTime.UtcNow.AddHours(1),
+                Expires = DateTime.UtcNow.Add(_jwtConfig.ExpiryTime),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key),SecurityAlgorithms.HmacSha256) //expiracion exp
                 
             };

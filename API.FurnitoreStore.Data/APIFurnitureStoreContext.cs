@@ -1,4 +1,5 @@
 ﻿using API.FurnitoreStore.Shared;
+using API.FurnitoreStore.Shared.DTOs;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,6 +18,7 @@ namespace API.FurnitoreStore.Data
         public DbSet<Order> Orders { get; set; }
         public DbSet<ProductCategory> ProductCategories { get; set; }
         public DbSet<OrderDetail> OrderDetails { get; set; }
+        public DbSet<RefreshToken> RefreshTokens { get; set; }
 
         //al utsar SQLite se usa este override
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

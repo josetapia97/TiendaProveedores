@@ -3,6 +3,7 @@ using System;
 using API.FurnitoreStore.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.FurnitoreStore.Data.Migrations
 {
     [DbContext(typeof(APIFurnitureStoreContext))]
-    partial class APIFurnitureStoreContextModelSnapshot : ModelSnapshot
+    [Migration("20231114164113_Adding Refresh Tokens")]
+    partial class AddingRefreshTokens
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.24");

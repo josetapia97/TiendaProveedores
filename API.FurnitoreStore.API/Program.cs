@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
@@ -68,6 +69,25 @@ builder.Services.Configure<SmtpSettings>(builder.Configuration.GetSection("SmtpS
 //Inyecta dependencia para emailsender
 builder.Services.AddSingleton<IEmailSender, EmailService>();
 
+//Ocuparemos algunos parametros mas de una vez para los tokens, por lo que se reutilizan de la sig forma
+
+//Traemos la key codificada
+var key = Encoding.ASCII.GetBytes(builder.Configuration.GetSection("JwtConfig:Secret").Value);
+var tokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters()
+{
+    //la validacion tiene que suceder
+    ValidateIssuerSigningKey = true,
+    //la validacion que tiene que hacer
+    IssuerSigningKey = new SymmetricSecurityKey(key),
+    //solo en entorno de desarrollo false, luego true. LAS TRES
+    ValidateIssuer = false,
+    ValidateAudience = false,
+    RequireExpirationTime = false,
+    ValidateLifetime = true,
+};
+
+builder.Services.AddSingleton(tokenValidationParameters);
+
 //Seteamos la autenticacion para jwt baerer
 builder.Services.AddAuthentication(options =>
 {
@@ -76,24 +96,13 @@ builder.Services.AddAuthentication(options =>
     options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
 }).AddJwtBearer(jwt =>
 {
-    //Traemos la key codificada
-    var key = Encoding.ASCII.GetBytes(builder.Configuration.GetSection("JwtConfig:Secret").Value);
+
     //Guardamos el token
     jwt.SaveToken = true;
     //instanciamos para validar
-    jwt.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters()
-    {
-        //la validacion tiene que suceder
-        ValidateIssuerSigningKey = true,
-        //la validacion que tiene que hacer
-        IssuerSigningKey = new SymmetricSecurityKey(key),
-        //solo en entorno de desarrollo false, luego true. LAS TRES
-        ValidateIssuer = false,
-        ValidateAudience = false,
-        RequireExpirationTime = false,
-        ValidateLifetime = true,
-    };
-    
+    jwt.TokenValidationParameters = tokenValidationParameters;
+
+
 });
 
 //para usar IdentityUser como clase (para autenticacion)
