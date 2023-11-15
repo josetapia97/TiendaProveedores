@@ -1,18 +1,24 @@
 ﻿using API.FurnitoreStore.API.Configuration;
+using API.FurnitoreStore.Data;
 using API.FurnitoreStore.Shared.Auth;
+using API.FurnitoreStore.Shared.Common;
 using API.FurnitoreStore.Shared.DTOs;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using System.Text.Encodings.Web;
+using JwtRegisteredClaimNames = Microsoft.IdentityModel.JsonWebTokens.JwtRegisteredClaimNames;
 
 namespace API.FurnitoreStore.API.Controllers
 {
@@ -23,15 +29,22 @@ namespace API.FurnitoreStore.API.Controllers
         private readonly UserManager<IdentityUser> _userManager;
         private readonly JwtConfig _jwtConfig;
         private readonly IEmailSender _emailSender;
+        private readonly APIFurnitureStoreContext _context;
+        private readonly TokenValidationParameters _tokenValidationParameters;
 
         //IOptions trae elementos desde cofig especificando el tipo de output
         public AuthenticationController(UserManager<IdentityUser> userManager,
                                         IOptions<JwtConfig> jwtConfig,
-                                        IEmailSender emailSender)
+                                        IEmailSender emailSender,
+                                        APIFurnitureStoreContext context,
+                                        TokenValidationParameters tokenValidationParameters)
         {
             _userManager = userManager;
             _jwtConfig = jwtConfig.Value;
             _emailSender = emailSender;
+            _context = context;
+            _tokenValidationParameters = tokenValidationParameters;
+
         }
 
         [HttpPost("Register")]
@@ -114,10 +127,23 @@ namespace API.FurnitoreStore.API.Controllers
                  Errors = new List<string> { "Invalid Credentials" } 
             });
 
-            var token = GenerateToken(existingUser);
+            var token = GenerateTokenAsync(existingUser);
 
-            return Ok(new AuthResult { Result = true, Token = token });
+            return Ok(token);
         }
+
+        [HttpPost("RefreshToken")]
+        public async Task<IActionResult> RefreshToken([FromBody] TokenRequest tokenRequest)
+        {
+            if (!ModelState.IsValid) return BadRequest(new AuthResult { Errors = new List<string> { "Invalid Parameters" },Result = false });
+
+            var results = VerityAndGenerateTokenAsync(tokenRequest); //implementar
+
+            if (results ==null) return BadRequest(new AuthResult { Errors = new List<string> { "Invalid Token"},  Result = false });
+
+            return Ok(results);
+        }
+
 
         [HttpGet("ConfirmEmail")]
         public async Task<IActionResult> ConfirmEmail(string userId, string code)
@@ -142,7 +168,7 @@ namespace API.FurnitoreStore.API.Controllers
 
 
 
-        private string GenerateToken(IdentityUser user)
+        private async Task<AuthResult> GenerateTokenAsync(IdentityUser user)
         {
             var jwtTokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.UTF8.GetBytes(_jwtConfig.Secret);
@@ -165,7 +191,27 @@ namespace API.FurnitoreStore.API.Controllers
 
             //ahora va el token en si mismo
             var token = jwtTokenHandler.CreateToken(tokenDescriptor);
-            return jwtTokenHandler.WriteToken(token);
+            var jwtToken= jwtTokenHandler.WriteToken(token);
+            var refreshToken = new RefreshToken
+            {
+                JwtId = token.Id,
+                Token = RandomGenerator.GenerateRandomString(23),
+                AddedDate = DateTime.UtcNow,
+                ExpiryTime = DateTime.UtcNow.AddMonths(6),
+                IsRevoked = false,
+                IsUsed = false,
+                UderId = user.Id,
+            };
+
+            await _context.RefreshTokens.AddAsync(refreshToken);
+            await _context.SaveChangesAsync();
+
+            return new AuthResult 
+            {
+                Token = jwtToken,
+                RefreshToken = refreshToken.Token,
+                Result = true
+            };
 
         }
 
@@ -184,5 +230,55 @@ namespace API.FurnitoreStore.API.Controllers
             await _emailSender.SendEmailAsync(user.Email, "Confirm your email" , emailBody);
         }
 
+        private async Task<AuthResult> VerityAndGenerateTokenAsync(TokenRequest tokenRequest)
+        {
+            var jwtTokenHandler = new JwtSecurityTokenHandler();
+            try
+            {
+                //para test en falso
+                _tokenValidationParameters.ValidateLifetime = false;
+                var tokenVerified = jwtTokenHandler.ValidateToken(tokenRequest.Token, _tokenValidationParameters,out var validatedToken);
+                if(validatedToken is JwtSecurityToken jwtSecurityToken)
+                {
+                    var result = jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256, StringComparison.InvariantCultureIgnoreCase);
+                    if (!result || tokenVerified == null)
+                        throw new Exception("Invalid token");
+                }
+                var utcExpiryDate = long.Parse(tokenVerified.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Exp).Value);
+                var expiryDate = DateTimeOffset.FromUnixTimeSeconds(utcExpiryDate).UtcDateTime;
+                if(expiryDate < DateTime.UtcNow)
+                {
+                    throw new Exception("Expired Token");
+                }
+
+                //validaciones para verificar que el token cumple con las condiciones
+                var storedToken = await _context.RefreshTokens.FirstOrDefaultAsync(t => t.Token == tokenRequest.RefreshToken);
+                if (storedToken is null)
+                    throw new Exception("Invalid Token");
+                if (storedToken.IsUsed || storedToken.IsRevoked)
+                    throw new Exception("Invalid Token");
+                var jti = tokenVerified.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Jti).Value;
+                if (jti != storedToken.JwtId)
+                    throw new Exception("Invalid token");
+                if (storedToken.ExpiryTime < DateTime.UtcNow)
+                    throw new Exception("Expired Token");
+                storedToken.IsUsed = true;
+                _context.RefreshTokens.Update(storedToken);
+                await _context.SaveChangesAsync();
+
+                //asignamos el token al usuario
+                var dbUser = await _userManager.FindByIdAsync(storedToken.UderId);
+                return await GenerateTokenAsync(dbUser);
+
+            }
+            catch (Exception e)
+            {
+
+                var message = e.Message == "Invalid Token" || e.Message == "Expired Token"
+                    ? e.Message
+                    : "Internal server error";
+                return new AuthResult { Errors = new List<string> {  message }, Result = false };
+            }
+        }
     }
 }

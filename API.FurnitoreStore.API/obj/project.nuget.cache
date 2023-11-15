@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "H1o4MIbCM1OqWTP2Rg1qH4mR9p+XX1nFM8IpDF5jza6IJxUkLv5Q50m86f1STjcxR/PCQrd02FxxUiPGZ7M+gQ==",
+  "dgSpecHash": "Y5IRLc8PNj6Suetu/0fX46C57XBEpgrpWggv5DSWDHghc2WEnUrOo/nuP5sqKrnIJd3JEdfe/UCXBFh+vmCvxw==",
   "success": true,
   "projectFilePath": "C:\\Users\\jose\\Desktop\\Proyectos\\dotNet\\API.FurnitoreStore\\API.FurnitoreStore.API\\API.FurnitoreStore.API.csproj",
   "expectedPackageFiles": [
@@ -43,6 +43,9 @@
     "C:\\Users\\jose\\.nuget\\packages\\microsoft.identitymodel.tokens\\6.10.0\\microsoft.identitymodel.tokens.6.10.0.nupkg.sha512",
     "C:\\Users\\jose\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
     "C:\\Users\\jose\\.nuget\\packages\\mimekit\\3.4.3\\mimekit.3.4.3.nupkg.sha512",
+    "C:\\Users\\jose\\.nuget\\packages\\nlog\\5.2.5\\nlog.5.2.5.nupkg.sha512",
+    "C:\\Users\\jose\\.nuget\\packages\\nlog.extensions.logging\\5.3.5\\nlog.extensions.logging.5.3.5.nupkg.sha512",
+    "C:\\Users\\jose\\.nuget\\packages\\nlog.web.aspnetcore\\5.3.5\\nlog.web.aspnetcore.5.3.5.nupkg.sha512",
     "C:\\Users\\jose\\.nuget\\packages\\portable.bouncycastle\\1.9.0\\portable.bouncycastle.1.9.0.nupkg.sha512",
     "C:\\Users\\jose\\.nuget\\packages\\sqlitepclraw.bundle_e_sqlite3\\2.1.2\\sqlitepclraw.bundle_e_sqlite3.2.1.2.nupkg.sha512",
     "C:\\Users\\jose\\.nuget\\packages\\sqlitepclraw.core\\2.1.2\\sqlitepclraw.core.2.1.2.nupkg.sha512",
