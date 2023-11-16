@@ -31,25 +31,29 @@ namespace API.FurnitoreStore.API.Controllers
         private readonly IEmailSender _emailSender;
         private readonly APIFurnitureStoreContext _context;
         private readonly TokenValidationParameters _tokenValidationParameters;
+        private readonly ILogger<AuthenticationController> _logger;
 
         //IOptions trae elementos desde cofig especificando el tipo de output
         public AuthenticationController(UserManager<IdentityUser> userManager,
                                         IOptions<JwtConfig> jwtConfig,
                                         IEmailSender emailSender,
                                         APIFurnitureStoreContext context,
-                                        TokenValidationParameters tokenValidationParameters)
+                                        TokenValidationParameters tokenValidationParameters,
+                                        ILogger<AuthenticationController> logger)
         {
             _userManager = userManager;
             _jwtConfig = jwtConfig.Value;
             _emailSender = emailSender;
             _context = context;
             _tokenValidationParameters = tokenValidationParameters;
+            _logger = logger;
 
         }
 
         [HttpPost("Register")]
         public async Task<IActionResult> Register([FromBody] UserRegistrationRequestDto request)
         {
+            _logger.LogWarning("A user is trying to register");
             if (!ModelState.IsValid) return BadRequest();
             //Verificar si el email existe
             var emailExist = await _userManager.FindByEmailAsync(request.EmailAdress);

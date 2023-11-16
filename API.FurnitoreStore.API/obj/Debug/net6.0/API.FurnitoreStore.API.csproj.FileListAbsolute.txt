@@ -88,3 +88,7 @@ C:\Users\jose\Desktop\Proyectos\dotNet\API.FurnitoreStore\API.FurnitoreStore.API
 C:\Users\jose\Desktop\Proyectos\dotNet\API.FurnitoreStore\API.FurnitoreStore.API\bin\Debug\net6.0\MailKit.dll
 C:\Users\jose\Desktop\Proyectos\dotNet\API.FurnitoreStore\API.FurnitoreStore.API\bin\Debug\net6.0\MimeKit.dll
 C:\Users\jose\Desktop\Proyectos\dotNet\API.FurnitoreStore\API.FurnitoreStore.API\bin\Debug\net6.0\BouncyCastle.Crypto.dll
+C:\Users\jose\Desktop\Proyectos\dotNet\API.FurnitoreStore\API.FurnitoreStore.API\bin\Debug\net6.0\nlog.config
+C:\Users\jose\Desktop\Proyectos\dotNet\API.FurnitoreStore\API.FurnitoreStore.API\bin\Debug\net6.0\NLog.dll
+C:\Users\jose\Desktop\Proyectos\dotNet\API.FurnitoreStore\API.FurnitoreStore.API\bin\Debug\net6.0\NLog.Extensions.Logging.dll
+C:\Users\jose\Desktop\Proyectos\dotNet\API.FurnitoreStore\API.FurnitoreStore.API\bin\Debug\net6.0\NLog.Web.AspNetCore.dll
